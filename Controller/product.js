@@ -1,13 +1,40 @@
-const fs = require("fs");
-const data = JSON.parse(fs.readFileSync("./public/data.json", "utf-8"));
-const products = data.products;
+// const fs = require("fs");
+// const data = JSON.parse(fs.readFileSync("./public/data.json", "utf-8"));
+// const products = data.products;
+
+const model = require("../Model/product");
+const Product = model.Product;
 
 //post
 exports.createProduct = (req, res) => {
+  const product = new Product({
+    title: "iphope",
+    price: 99997,
+    rating: 4.5,
+    brand: "Apple",
+  });
+
+  // product.save().then(() => {
+  //   res.json(product);
+  // });
+
+  product
+    .save()
+    .then((result) => {
+      console.log(result);
+      res.json({ result });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        error: err,
+      });
+    });
+
   // res.json({ type: "POST" });
-  console.log(req.body);
-  products.push(req.body);
-  res.json(products);
+  // console.log(req.body);
+  // products.push(req.body);
+  // res.json(products);
 };
 
 //get
