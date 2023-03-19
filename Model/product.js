@@ -4,14 +4,26 @@ const { Schema } = mongoose;
 
 //Schema for ecommerce/products
 const productSchema = new Schema({
-  title: String,
+  title: { type: String, required: true }, //unique: true
   description: String,
-  price: Number,
-  discountPercentage: Number,
-  rating: Number,
-  brand: String,
-  category: String,
-  thumbnail: String,
+  price: {
+    type: Number,
+    min: [0, "Wrong Min Price Entered"],
+    required: [true, "Please Enter Price"],
+  },
+  discountPercentage: {
+    type: Number,
+    min: [0, "Wrong Discount percentage"],
+    max: [50, "Wrong max Discount precentage"],
+  },
+  rating: {
+    type: Number,
+    min: [0, "Wrong min rating"],
+    max: [5, "Wrong max rating"],
+  },
+  brand: { type: String, required: [true, "Please Enter your brand"] },
+  category: { type: String, required: [true, "Please Enter your category"] },
+  thumbnail: { type: String, required: [true, "Please Enter your Thumbnail"] },
   images: [String],
 });
 
