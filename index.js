@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const productRouter = require("./Routes/product");
 // const userRouter = require("./Routes/user");
@@ -19,6 +20,7 @@ async function main() {
 
 // console.log(process.env);
 // console.log(process.env.DB_PASSWORD);
+app.use(cors());
 
 app.use("/api", productRouter.router); //This is a middleware between app and router
 // app.use("/api", userRouter.router); //This is a middleware between app and router
