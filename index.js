@@ -6,6 +6,8 @@ app.use(express.json());
 const mongoose = require("mongoose");
 const cors = require("cors");
 
+const path = require("path");
+
 const productRouter = require("./Routes/product");
 // const userRouter = require("./Routes/user");
 
@@ -20,12 +22,20 @@ async function main() {
 
 // console.log(process.env);
 // console.log(process.env.DB_PASSWORD);
+
+//this cors helps to connect frontend anad backend server
 app.use(cors());
 
-app.use("/api", productRouter.router); //This is a middleware between app and router
+app.use(express.static(path.resolve(__dirname, process.env.PUBLIC_DIR))); // "/" => goes to product page
+
+app.use("/", productRouter.router); //This is a middleware between app and router
 // app.use("/api", userRouter.router); //This is a middleware between app and router
 
 // const morgan = require("morgan");
+
+app.use("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "build", "index.html"));
+});
 
 app.listen(process.env.PORT, () => {
   console.log("server started");
