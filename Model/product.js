@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 //Schema for ecommerce/products
 const productSchema = new Schema({
   title: { type: String, required: true }, //unique: true
-  description: String,
+  description: { type: String, required: true },
   price: {
     type: Number,
     min: [0, "Wrong Min Price Entered"],
